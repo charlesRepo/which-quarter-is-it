@@ -94,7 +94,7 @@ const quarterObj = getCurrentQuarter();
 const textEl = document.querySelector('[data-text]');
 textEl && quarterObj && (textEl.innerHTML = `
 <p>Currently it's the</p>
-<h2>${quarterObj.quarter} of the Fiscal Year ${quarterObj.fiscalYear}</h2>
+<h2>${quarterObj.quarter} of the Fiscal Year ${quarterObj.fiscalYear + 1}</h2>
 <p>It ${quarterObj.hasQuarterStarted ? 'started' : 'starts'} at <b>${quarterObj.startDate}</b></p>
 <p>and ends on <b>${quarterObj.endDate}</b>.</p>
 <br>
