@@ -74,13 +74,16 @@ function getCurrentQuarter() {
   const msPerDay = 1000 * 60 * 60 * 24;
   const daysRemaining = Math.ceil((endOfQuarter - today) / msPerDay);
   
+  const hasQuarterStarted = today > startDate;
+
   return {
     quarter,
     startDate: formatDate(startDate),
     endDate: formatDate(endDate),
     todayDate: formatDate(today),
     fiscalYear,
-    daysRemaining: daysRemaining > 0 ? daysRemaining : 0
+    daysRemaining: daysRemaining > 0 ? daysRemaining : 0,
+    hasQuarterStarted
   };
 }
 
@@ -92,7 +95,7 @@ const textEl = document.querySelector('[data-text]');
 textEl && quarterObj && (textEl.innerHTML = `
 <p>Currently it's the</p>
 <h2>${quarterObj.quarter} of the Fiscal Year ${quarterObj.fiscalYear}</h2>
-<p>it starts on <b>${quarterObj.startDate}</b></p>
+<p>It ${quarterObj.hasQuarterStarted ? 'started' : 'starts'} at <b>${quarterObj.startDate}</b></p>
 <p>and ends on <b>${quarterObj.endDate}</b>.</p>
 <br>
 <h1 style="color:#FA00FF">${quarterObj.daysRemaining} days</h1>
