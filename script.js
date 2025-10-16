@@ -28,36 +28,44 @@ function getCurrentQuarter() {
   const today = new Date();
   const currentYear = today.getFullYear();
   const currentMonth = today.getMonth() + 1; // 1-12
-  const currentDate = today.getDate();
-  
+
   // Define fiscal year quarters (Q1: Apr-Jun, Q2: Jul-Sep, Q3: Oct-Dec, Q4: Jan-Mar)
-  let quarter, startMonth, endMonth, fiscalYear;
-  
+  let quarter, fiscalYear;
+  let startMonth, startYear, endMonth, endYear;
+
   if (currentMonth >= 4 && currentMonth <= 6) {
     quarter = 'First Quarter';
-    startMonth = 4;
-    endMonth = 6;
     fiscalYear = currentYear;
+    startMonth = 4;
+    startYear = currentYear;
+    endMonth = 6;
+    endYear = currentYear;
   } else if (currentMonth >= 7 && currentMonth <= 9) {
     quarter = 'Second Quarter';
-    startMonth = 7;
-    endMonth = 9;
     fiscalYear = currentYear;
+    startMonth = 7;
+    startYear = currentYear;
+    endMonth = 9;
+    endYear = currentYear;
   } else if (currentMonth >= 10 && currentMonth <= 12) {
     quarter = 'Third Quarter';
-    startMonth = 10;
-    endMonth = 12;
     fiscalYear = currentYear;
+    startMonth = 10;
+    startYear = currentYear;
+    endMonth = 12;
+    endYear = currentYear;
   } else {
     quarter = 'Fourth Quarter';
+    fiscalYear = currentYear - 1;
     startMonth = 1;
+    startYear = currentYear;
     endMonth = 3;
-    fiscalYear = currentYear; // Q4 is in the next calendar year
+    endYear = currentYear;
   }
-  
+
   // Calculate quarter start and end dates
-  const startDate = new Date(fiscalYear, startMonth - 1, 1);
-  const endDate = new Date(fiscalYear, endMonth, 0); // Last day of end month
+  const startDate = new Date(startYear, startMonth - 1, 1);
+  const endDate = new Date(endYear, endMonth, 0); // Last day of end month
   
   // Calculate days remaining in quarter
   const endOfQuarter = new Date(endDate);
@@ -83,8 +91,8 @@ const quarterObj = getCurrentQuarter();
 const textEl = document.querySelector('[data-text]');
 textEl && quarterObj && (textEl.innerHTML = `
 <p>Currently it's the</p>
-<h2>${quarterObj.quarter} of the Fiscal Year ${quarterObj.fiscalYear}</h2> 
-<p>it starts on <b>${quarterObj.startDate}</b></p> 
+<h2>${quarterObj.quarter} of the Fiscal Year ${quarterObj.fiscalYear}</h2>
+<p>it starts on <b>${quarterObj.startDate}</b></p>
 <p>and ends on <b>${quarterObj.endDate}</b>.</p>
 <br>
 <h1 style="color:#FA00FF">${quarterObj.daysRemaining} days</h1>
